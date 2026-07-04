@@ -1,0 +1,142 @@
+{% extends "layout.html" %}
+
+{% block title %}Vehicle Detection - VTS{% endblock %}
+
+{% block content %}
+
+<div class="header">
+    <div>
+        <h1 class="page-title">
+            <i class="fas fa-car"></i>
+            Vehicle Detection
+        </h1>
+
+        <p class="page-subtitle">
+            Upload a vehicle image to automatically detect the vehicle number plate and color.
+        </p>
+    </div>
+</div>
+
+<div class="card" style="max-width:900px;margin:auto;">
+
+    <form
+        action="/camera_entry"
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        <div class="form-group">
+
+            <label>Select Vehicle Image</label>
+
+            <input
+                type="file"
+                name="vehicle_image"
+                accept="image/*"
+                required
+                class="form-control"
+            >
+
+        </div>
+
+        <div style="margin-top:25px;text-align:center;">
+
+            <button
+                class="btn btn-primary btn-lg"
+                type="submit"
+            >
+                <i class="fas fa-search"></i>
+                Detect Vehicle
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% if image_path %}
+
+<div class="card" style="margin-top:30px;">
+
+<div style="display:grid;
+grid-template-columns:1fr 1fr;
+gap:35px;">
+
+<div>
+
+<h3>
+Captured Vehicle
+</h3>
+
+<img
+src="/{{ image_path }}"
+style="
+width:100%;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+">
+
+</div>
+
+<div>
+
+<h3>
+Detection Results
+</h3>
+
+<div class="card">
+
+<p><strong>Vehicle Number</strong></p>
+
+<h2 style="margin-top:5px;">
+{{ detected_plate }}
+</h2>
+
+<hr>
+
+<p><strong>Vehicle Color</strong></p>
+
+<h3>
+{{ detected_color }}
+</h3>
+
+<hr>
+
+<p><strong>Status</strong></p>
+
+<span class="status-badge status-inside">
+INSIDE
+</span>
+
+<br><br>
+
+<p><strong>Detection Type</strong></p>
+
+<span class="status-badge status-inside">
+IMAGE
+</span>
+
+<br><br>
+
+<div
+style="
+color:green;
+font-weight:bold;
+">
+
+Vehicle detected successfully and stored in the database.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
