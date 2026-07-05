@@ -11,10 +11,11 @@ def get_database_connection():
     """
     try:
         connection = mysql.connector.connect(
-            host=Config.DB_HOST,
-            user=Config.DB_USER,
-            password=Config.DB_PASSWORD,
-            database=Config.DB_NAME
+        host=Config.DB_HOST,
+        port=Config.DB_PORT,
+        user=Config.DB_USER,
+        password=Config.DB_PASSWORD,
+        database=Config.DB_NAME
         )
         return connection
     except mysql.connector.Error as err:
